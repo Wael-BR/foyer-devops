@@ -9,8 +9,7 @@ services:
       - MYSQL_DATABASE=db
     ports:
       - 3306:3306
-    volumes:
-      - db:/var/lib/mysql
+    network_mode: "host"  # Use host networking
 
   app:
     depends_on:
@@ -23,6 +22,10 @@ services:
       - .m2:/root/.m2
     stdin_open: true
     tty: true
-
-volumes:
-  db:
+    environment:
+      - MYSQL_HOST=localhost  # Use localhost because we're using host networking
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=root  # Or set a specific user if you have one
+      - MYSQL_PASSWORD=   # Set a password here if needed
+    network_mode: "host"  # Use host networking
