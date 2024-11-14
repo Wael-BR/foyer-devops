@@ -73,7 +73,7 @@
     </build>
     <distributionManagement>
 		<repository>
-			<id>maven-releases</id>
+			<id>deploymentRepo</id>
 			<name>maven-releases</name>
 			<url>http://localhost:8081/repository/maven-releases/</url>
 		</repository>
