@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git') {
+            steps {
+                git branch: 'master', url: 'https://github.com/Wael-BR/foyer-devops.git'
+                sh 'pwd'
+            }
+        }
+        stage('Maven Clean Install') {
+            steps {
+                sh 'mvn clean install'
+                sh 'ls target'
+            }
+        }
+        stage('Docker Image Build') {
+            steps {
+                sh 'docker build -t magfish/tp-foyer:1.0.0 .'
+            }
+        }
+        stage('Image push to DockerHub') {
+            steps {
+                sh 'docker push magfish/tp-foyer:1.0.0'
+            }
+        }
+        stage('Docker Compose Up') {
+            steps {
+                sh 'docker compose up -d'
+            }
+        }
+    }
+}
